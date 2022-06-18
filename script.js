@@ -1,14 +1,18 @@
 let operator;
 let answer;
-let input1;
-let input2;
-let division = false;
+let input; // Ongoing input from user
+let input1; // Left operand
+let input2; // Right operand
+let division;
+let addition;
+let subtraction;
+let multiplication;
 
 let screen = document.querySelector('#text');
 const buttons = document.querySelectorAll('button');
 
 // Adds the button's text content to the screen and receives first argument
-function firstArg() {   
+function getInput() {   
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
             switch (button.id) {
@@ -43,12 +47,20 @@ function firstArg() {
                     screen.textContent += 0;
                     break;
                 case 'clear':
-                    screen.textContent = 0;
+                    screen.textContent = "";
+                    input1 = undefined;
+                    input2 = undefined;
                     break;
                 case 'slash':
-                    division = true;
-                    input1 = screen.textContent;
-                    secondArg();
+                    operator = "slash";
+                    input = screen.textContent;
+                    chooseArg(input);
+                    screen.textContent = "";
+                    break;
+                case 'equals':
+                    input = screen.textContent;
+                    chooseArg(input);
+                    operate(input1, input2);
                     break;
                 default:
                     console.log("Still in function 1.");
@@ -56,9 +68,58 @@ function firstArg() {
             }
 
             console.log(input1, input2);
-            console.log("Still in function 1");
         });
     });
+}
+
+// Assigns the screen content to either input1 or input2
+function setScreen() {
+    if (typeof(input1) == "undefined") {
+        screen.textContent = input1;
+    } else {
+        screen.textContent;
+    }
+}
+
+// Determine if input goes into input1 or input2
+function chooseArg(input) {
+    if (typeof(input1) == "undefined") {
+        input1 = Number(input);
+    } else {
+        input2 = Number(input);
+    }
+}
+
+// Sets the operator to division
+function doDiv() {
+    division = true;
+    addition = false;
+    subtraction = false;
+    multiplication = false;
+}
+
+// Sets the operator to multiplication
+function doMult() {
+    division = false;
+    addition = false;
+    subtraction = false;
+    multiplication = true;
+}
+
+// Sets the operator to addition
+function doAdd() {
+    division = false;
+    addition = true;
+    subtraction = false;
+    multiplication = false;
+}
+
+// Sets the operator to subtraction
+function doSub() {
+    division = false;
+    addition = false;
+    subtraction = true;
+    multiplication = false;
 }
 
 function add(x, y) {
@@ -77,9 +138,10 @@ function multiply(x, y) {
 }
 
 function divide(x, y) {
-    console.log(x, y);
     answer = x / y;
     screen.textContent = answer;
+    input1 = answer;
+    input2;
 }
 
 // Return answer to user
@@ -101,4 +163,4 @@ function operate(x, y) {
     }
 }
 
-firstArg();
+getInput();
