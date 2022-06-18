@@ -12,7 +12,7 @@ let screen = document.querySelector('#text');
 const buttons = document.querySelectorAll('button');
 
 // Adds the button's text content to the screen and receives first argument
-function getInput() {   
+function getInput() {
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
             switch (button.id) {
@@ -46,6 +46,13 @@ function getInput() {
                 case 'zero':
                     screen.textContent += 0;
                     break;
+                case 'point':
+                    if ((screen.textContent).includes(".")) {
+                        return;
+                    } else {
+                        screen.textContent += ".";
+                    }
+                    break;
                 case 'clear':
                     screen.textContent = "";
                     input1 = undefined;
@@ -55,30 +62,28 @@ function getInput() {
                     operator = "slash";
                     input = screen.textContent;
                     chooseArg(input);
-                    screen.textContent = "";
+                    checkOngoing();
+                    screen.textContent = ""; // Resets the screen's value
                     break;
                 case 'equals':
-                    input = screen.textContent;
-                    chooseArg(input);
-                    operate(input1, input2);
+                    if (typeof(input1) == "undefined") {
+                        return;
+                    } else if ((screen.textContent) === "") {
+                        return;
+                    } else {
+                        input = screen.textContent;
+                        chooseArg(input);
+                        operate(input1, input2);
+                    }
                     break;
                 default:
-                    console.log("Still in function 1.");
+                    console.log("How did you manage that?");
 
             }
 
             console.log(input1, input2);
         });
     });
-}
-
-// Assigns the screen content to either input1 or input2
-function setScreen() {
-    if (typeof(input1) == "undefined") {
-        screen.textContent = input1;
-    } else {
-        screen.textContent;
-    }
 }
 
 // Determine if input goes into input1 or input2
@@ -90,36 +95,12 @@ function chooseArg(input) {
     }
 }
 
-// Sets the operator to division
-function doDiv() {
-    division = true;
-    addition = false;
-    subtraction = false;
-    multiplication = false;
-}
-
-// Sets the operator to multiplication
-function doMult() {
-    division = false;
-    addition = false;
-    subtraction = false;
-    multiplication = true;
-}
-
-// Sets the operator to addition
-function doAdd() {
-    division = false;
-    addition = true;
-    subtraction = false;
-    multiplication = false;
-}
-
-// Sets the operator to subtraction
-function doSub() {
-    division = false;
-    addition = false;
-    subtraction = true;
-    multiplication = false;
+// Checks for ongoing arithmetic without using equals button
+function checkOngoing() {
+    if (typeof(input1) == "number" && typeof(input2) == "number") {
+        operate(input1, input2);
+        console.log("checkOngoing()");
+    }
 }
 
 function add(x, y) {
@@ -139,9 +120,9 @@ function multiply(x, y) {
 
 function divide(x, y) {
     answer = x / y;
-    screen.textContent = answer;
+    screen.textContent = answer.toFixed(2);
     input1 = answer;
-    input2;
+    input2 = undefined;
 }
 
 // Return answer to user
@@ -154,7 +135,7 @@ function operate(x, y) {
         return multiply(x, y);
     } else if (operator == "slash") {
         if (y == 0) {
-            return "Fool";
+            screen.textContent = "Fool";
         } else {
             divide(x, y);
         }
