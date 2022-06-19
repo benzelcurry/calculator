@@ -3,6 +3,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .calculator {
@@ -17,6 +18,12 @@ body {
     border: solid black;
 }
 
+.copyright {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 8px;
+}
+
 .screen {
     display: flex;
     flex-direction: row-reverse;
@@ -26,11 +33,14 @@ body {
     height: 100px;
     border: solid black;
     font-size: 84px;
+    flex-wrap: wrap;
+    flex-grow: 1;
 }
 
 #text {
     margin-right: 8px;
     margin-bottom: -4px;
+    flex-wrap: wrap;
 }
 
 #text-2 {

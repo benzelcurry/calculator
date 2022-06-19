@@ -108,6 +108,13 @@ function getInput() {
                         }
                     }
                     break;
+                case 'delete':
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent = screen.textContent.slice(0, -1);
+                    } else {
+                        newScreen.textContent = newScreen.textContent.slice(0, -1);
+                    }
+                    break;
                 case 'clear':
                     screen.textContent = "";
                     newScreen.textContent = "";
