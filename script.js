@@ -115,20 +115,24 @@ function getInput() {
                     input2 = undefined;
                     break;
                 case 'slash':
-                    operator = "slash";
                     chooseArg();
+                    checkOngoing();
+                    operator = "slash";
                     break;
                 case 'times':
-                    operator = "times";
                     chooseArg();
+                    checkOngoing();
+                    operator = "times";
                     break;
                 case 'plus':
-                    operator = "plus";
                     chooseArg();
+                    checkOngoing();
+                    operator = "plus";
                     break;
                 case 'minus':
-                    operator = "minus";
                     chooseArg();
+                    checkOngoing();
+                    operator = "minus";
                     break;
                 case 'equals':
                     if (typeof(input1) == "undefined") {
