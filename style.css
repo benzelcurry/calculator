@@ -33,6 +33,11 @@ body {
     margin-bottom: -4px;
 }
 
+#text-2 {
+    margin-right: 8px;
+    margin-bottom: -4px;
+}
+
 .buttons {
     display: flex;
     background-color: plum;

@@ -5,6 +5,7 @@ let input1; // Left operand
 let input2; // Right operand
 
 let screen = document.querySelector('#text');
+let newScreen = document.querySelector('#text-2');
 const buttons = document.querySelectorAll('button');
 
 // Adds the button's text content to the screen and receives first argument
@@ -13,75 +14,130 @@ function getInput() {
         button.addEventListener('click', () => {
             switch (button.id) {
                 case 'one':
-                    screen.textContent += 1;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 1;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 1;
+                    }
                     break;
                 case 'two':
-                    screen.textContent += 2;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 2;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 2;
+                    }
                     break;
                 case 'three':
-                    screen.textContent += 3;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 3;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 3;
+                    }
                     break;
                 case 'four':
-                    screen.textContent += 4;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 4;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 4;
+                    }
                     break;
                 case 'five':
-                    screen.textContent += 5;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 5;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 5;
+                    }
                     break;
                 case 'six':
-                    screen.textContent += 6;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 6;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 6;
+                    }
                     break;
                 case 'seven':
-                    screen.textContent += 7;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 7;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 7;
+                    }
                     break;
                 case 'eight':
-                    screen.textContent += 8;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 8;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 8;
+                    }
                     break;
                 case 'nine':
-                    screen.textContent += 9;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 9;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 9;
+                    }
                     break;
                 case 'zero':
-                    screen.textContent += 0;
+                    if (typeof(input1) == 'undefined') {
+                        screen.textContent += 0;
+                    } else {
+                        screen.textContent = "";
+                        newScreen.textContent += 0;
+                    }
                     break;
                 case 'point':
-                    if ((screen.textContent).includes(".")) {
-                        return;
+                    if (typeof(input1) == 'undefined') {
+                        if ((screen.textContent).includes(".")) {
+                            return;
+                        } else {
+                            screen.textContent += ".";
+                        }
                     } else {
-                        screen.textContent += ".";
+                        if ((newScreen.textContent).includes(".")) {
+                            return;
+                        } else {
+                            newScreen.textContent += ".";
+                        }
                     }
                     break;
                 case 'clear':
                     screen.textContent = "";
+                    newScreen.textContent = "";
                     input1 = undefined;
                     input2 = undefined;
                     break;
                 case 'slash':
                     operator = "slash";
-                    opSubFx();
-                    screen.textContent = ""; // Resets the screen's value
+                    chooseArg();
                     break;
                 case 'times':
                     operator = "times";
-                    opSubFx();
-                    screen.textContent = "";
+                    chooseArg();
                     break;
                 case 'plus':
                     operator = "plus";
-                    opSubFx();
-                    screen.textContent = "";
+                    chooseArg();
                     break;
                 case 'minus':
                     operator = "minus";
-                    opSubFx();
-                    screen.textContent = "";
+                    chooseArg();
                     break;
                 case 'equals':
                     if (typeof(input1) == "undefined") {
                         return;
-                    } else if ((screen.textContent) === "") {
+                    } else if ((screen.textContent) === "" && (newScreen.textContent === "")) {
                         return;
                     } else {
-                        input = screen.textContent;
-                        chooseArg(input);
+                        console.log("Here");
+                        chooseArg();
                         operate(input1, input2);
                     }
                     break;
@@ -95,19 +151,12 @@ function getInput() {
     });
 }
 
-// Carries out multiple functions for each operator
-function opSubFx() {
-    input = screen.textContent;
-    chooseArg(input);
-    //checkOngoing();
-}
-
 // Determine if input goes into input1 or input2
-function chooseArg(input) {
-    if (typeof(input1) == "undefined") {
-        input1 = Number(input);
+function chooseArg() {
+    if (typeof(input1) == 'undefined') {
+        input1 = Number(screen.textContent);
     } else {
-        input2 = Number(input);
+        input2 = Number(newScreen.textContent);
     }
 }
 
@@ -121,6 +170,7 @@ function checkOngoing() {
 
 function add(x, y) {
     answer = x + y;
+    newScreen.textContent = "";
     screen.textContent = answer.toFixed(2);
     input1 = answer;
     input2 = undefined;
@@ -128,6 +178,7 @@ function add(x, y) {
 
 function subtract(x, y) {
     answer = x - y;
+    newScreen.textContent = "";
     screen.textContent = answer.toFixed(2);
     input1 = answer;
     input2 = undefined;
@@ -135,6 +186,7 @@ function subtract(x, y) {
 
 function multiply(x, y) {
     answer = x * y;
+    newScreen.textContent = "";
     screen.textContent = answer.toFixed(2);
     input1 = answer;
     input2 = undefined;
@@ -142,6 +194,7 @@ function multiply(x, y) {
 
 function divide(x, y) {
     answer = x / y;
+    newScreen.textContent = "";
     screen.textContent = answer.toFixed(2);
     input1 = answer;
     input2 = undefined;
@@ -157,6 +210,7 @@ function operate(x, y) {
         return multiply(x, y);
     } else if (operator == "slash") {
         if (y == 0) {
+            newScreen.textContent = "";
             screen.textContent = "Fool";
         } else {
             divide(x, y);
