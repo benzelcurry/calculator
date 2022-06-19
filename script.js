@@ -3,10 +3,6 @@ let answer;
 let input; // Ongoing input from user
 let input1; // Left operand
 let input2; // Right operand
-let division;
-let addition;
-let subtraction;
-let multiplication;
 
 let screen = document.querySelector('#text');
 const buttons = document.querySelectorAll('button');
@@ -60,10 +56,23 @@ function getInput() {
                     break;
                 case 'slash':
                     operator = "slash";
-                    input = screen.textContent;
-                    chooseArg(input);
-                    checkOngoing();
+                    opSubFx();
                     screen.textContent = ""; // Resets the screen's value
+                    break;
+                case 'times':
+                    operator = "times";
+                    opSubFx();
+                    screen.textContent = "";
+                    break;
+                case 'plus':
+                    operator = "plus";
+                    opSubFx();
+                    screen.textContent = "";
+                    break;
+                case 'minus':
+                    operator = "minus";
+                    opSubFx();
+                    screen.textContent = "";
                     break;
                 case 'equals':
                     if (typeof(input1) == "undefined") {
@@ -86,6 +95,13 @@ function getInput() {
     });
 }
 
+// Carries out multiple functions for each operator
+function opSubFx() {
+    input = screen.textContent;
+    chooseArg(input);
+    //checkOngoing();
+}
+
 // Determine if input goes into input1 or input2
 function chooseArg(input) {
     if (typeof(input1) == "undefined") {
@@ -105,17 +121,23 @@ function checkOngoing() {
 
 function add(x, y) {
     answer = x + y;
-    return answer;
+    screen.textContent = answer.toFixed(2);
+    input1 = answer;
+    input2 = undefined;
 }
 
 function subtract(x, y) {
     answer = x - y;
-    return answer;
+    screen.textContent = answer.toFixed(2);
+    input1 = answer;
+    input2 = undefined;
 }
 
 function multiply(x, y) {
     answer = x * y;
-    return answer;
+    screen.textContent = answer.toFixed(2);
+    input1 = answer;
+    input2 = undefined;
 }
 
 function divide(x, y) {
